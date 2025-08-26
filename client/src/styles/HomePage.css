@@ -1,0 +1,93 @@
+/* HomePage.css */
+.hero-banner {
+  position: relative;
+  background-image: url('../public/images/hero-banner-placeholder.jpg'); /* Placeholder */
+  background-size: cover;
+  background-position: center;
+  height: 550px; /* Slightly increased height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* Darker overlay for better text contrast */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  padding: var(--spacing-unit);
+  max-width: 800px;
+}
+
+.hero-title {
+  font-size: 3.8rem;
+  font-weight: 700;
+  margin-bottom: calc(var(--spacing-unit) * 1);
+  color: var(--secondary-safety-yellow);
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.hero-cta-buttons {
+  margin-top: calc(var(--spacing-unit) * 2);
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-unit);
+}
+
+/* Responsive adjustments for Hero Banner */
+@media (max-width: 992px) {
+  .hero-banner {
+    height: 450px;
+  }
+  .hero-title {
+    font-size: 3rem;
+  }
+  .hero-subtitle {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-banner {
+    height: 400px;
+  }
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  .hero-cta-buttons {
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 0.75);
+  }
+  .hero-cta-button {
+    width: 90%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-banner {
+    height: 350px;
+  }
+  .hero-title {
+    font-size: 2rem;
+  }
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+}

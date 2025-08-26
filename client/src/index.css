@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@300;400;600;700&display=swap');
+
+/* Global Styles and CSS Variables */
+:root {
+  --primary-royal-blue: #0A3D62; /* A deeper, more authoritative blue */
+  --secondary-safety-yellow: #FFC107; /* A vibrant, eye-catching yellow */
+  --dark-text: #212529;
+  --medium-gray: #6C757D;
+  --light-gray: #E9ECEF;
+  --white: #FFFFFF;
+
+  --heading-font: 'Montserrat', sans-serif;
+  --body-font: 'Open Sans', sans-serif;
+
+  --container-max-width: 1200px;
+  --section-padding-y: 60px;
+  --spacing-unit: 1rem; /* 16px */
+}
+
+body {
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: var(--light-gray);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Basic Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1, h2, h3, h4, h5, h6,
+p,
+blockquote,
+figure,
+figcaption,
+ol,
+ul,
+li,
+input,
+button,
+textarea,
+select {
+  margin: 0;
+  padding: 0;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-royal-blue);
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--secondary-safety-yellow);
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --section-padding-y: 40px;
+  }
+}

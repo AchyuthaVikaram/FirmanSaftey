@@ -1,0 +1,177 @@
+.product-detail-page {
+  padding-top: 0;
+}
+
+.product-detail-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: var(--primary-royal-blue);
+  color: var(--white);
+  padding: calc(var(--section-padding-y) * 1) var(--spacing-unit);
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.product-detail-image {
+  width: 250px; /* Larger image */
+  height: 250px;
+  object-fit: contain; /* Ensure full image is visible */
+  border-radius: 8px;
+  background-color: var(--white); /* White background for product image */
+  padding: var(--spacing-unit);
+  border: 5px solid var(--secondary-safety-yellow);
+  margin-bottom: calc(var(--spacing-unit) * 1.5);
+}
+
+.product-detail-info h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--secondary-safety-yellow);
+  margin-bottom: calc(var(--spacing-unit) * 0.5);
+  line-height: 1.2;
+}
+
+.product-detail-category {
+  font-size: 1.1rem;
+  color: var(--light-gray);
+  margin-bottom: var(--spacing-unit);
+}
+
+.product-detail-description {
+  font-size: 1.1rem;
+  color: var(--light-gray);
+  line-height: 1.7;
+  max-width: 800px;
+  margin: 0 auto calc(var(--spacing-unit) * 2);
+}
+
+.product-specifications {
+  max-width: 800px;
+  margin: var(--spacing-unit) auto calc(var(--spacing-unit) * 2);
+  background-color: var(--white);
+  padding: calc(var(--spacing-unit) * 1.5);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.product-specifications h3 {
+  font-family: var(--heading-font);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-royal-blue);
+  margin-bottom: var(--spacing-unit);
+  border-bottom: 2px solid var(--secondary-safety-yellow);
+  padding-bottom: calc(var(--spacing-unit) * 0.5);
+}
+
+.product-specifications ul {
+  list-style: none;
+  padding: 0;
+}
+
+.product-specifications li {
+  font-family: var(--body-font);
+  font-size: 1.05rem;
+  color: var(--dark-text);
+  line-height: 1.6;
+  margin-bottom: calc(var(--spacing-unit) / 2);
+}
+
+.product-specifications li strong {
+  color: var(--primary-royal-blue);
+}
+
+.datasheet-button,
+.get-quote-button {
+  display: inline-block;
+  background-color: var(--secondary-safety-yellow);
+  color: var(--dark-text);
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin: var(--spacing-unit) auto;
+}
+
+.datasheet-button:hover,
+.get-quote-button:hover {
+  background-color: #e6b800;
+  transform: translateY(-2px);
+}
+
+.get-quote-button {
+  background-color: var(--primary-royal-blue);
+  color: var(--white);
+  border: 2px solid var(--primary-royal-blue);
+  margin-left: var(--spacing-unit);
+}
+
+.get-quote-button:hover {
+  background-color: var(--white);
+  color: var(--primary-royal-blue);
+  border-color: var(--primary-royal-blue);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .product-detail-image {
+    width: 200px;
+    height: 200px;
+  }
+  .product-detail-info h1 {
+    font-size: 2.5rem;
+  }
+  .product-detail-category {
+    font-size: 1rem;
+  }
+  .product-detail-description {
+    font-size: 1rem;
+    max-width: 90%;
+  }
+  .product-specifications h3 {
+    font-size: 1.5rem;
+  }
+  .product-specifications li {
+    font-size: 0.95rem;
+  }
+  .datasheet-button,
+  .get-quote-button {
+    font-size: 1rem;
+    padding: 0.7rem 1.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-detail-image {
+    width: 180px;
+    height: 180px;
+  }
+  .product-detail-info h1 {
+    font-size: 2.2rem;
+  }
+  .product-detail-description {
+    font-size: 0.9rem;
+    margin: 0 auto var(--spacing-unit);
+  }
+  .product-specifications {
+    padding: var(--spacing-unit);
+  }
+  .product-specifications h3 {
+    font-size: 1.3rem;
+  }
+  .datasheet-button,
+  .get-quote-button {
+    width: 90%;
+    margin: calc(var(--spacing-unit) * 0.5) auto;
+    display: block;
+  }
+  .get-quote-button {
+    margin-left: auto; /* Center when stacked */
+  }
+}

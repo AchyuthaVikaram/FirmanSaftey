@@ -1,0 +1,111 @@
+.about-us-page-container {
+  width: 100%;
+}
+
+.about-us-hero-banner {
+  background-color: var(--primary-royal-blue);
+  color: var(--white);
+  padding: calc(var(--section-padding-y) * 1) var(--spacing-unit);
+  text-align: center;
+}
+
+.about-us-hero-title {
+  font-size: 3rem !important;
+  font-weight: 700 !important;
+  color: var(--secondary-safety-yellow);
+  margin-bottom: var(--spacing-unit);
+}
+
+.mission-vision-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: calc(var(--spacing-unit) * 1.5);
+  margin-top: calc(var(--spacing-unit) * 2);
+}
+
+.mission-vision-item {
+  background-color: var(--white);
+  padding: calc(var(--spacing-unit) * 2);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mission-vision-item + .mission-vision-item {
+  margin-top: 1.5rem;
+}
+
+.certification-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: calc(var(--spacing-unit) * 2);
+  margin-top: calc(var(--spacing-unit) * 2);
+  flex-wrap: wrap;
+}
+
+.certification-logo {
+  height: 90px; /* Adjust as needed */
+  max-width: 180px;
+  object-fit: contain;
+  filter: grayscale(80%); /* Subtle grayscale to blend, can be removed on hover */
+  transition: filter 0.3s ease;
+}
+
+.certification-logo:hover {
+  filter: grayscale(0%);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: calc(var(--spacing-unit) * 1.5);
+  margin-top: calc(var(--spacing-unit) * 2);
+}
+
+.testimonial-item {
+  background-color: var(--white);
+  padding: calc(var(--spacing-unit) * 2);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.testimonial-text {
+  font-style: italic;
+  color: var(--medium-gray);
+  line-height: 1.7;
+  margin-bottom: var(--spacing-unit);
+}
+
+.testimonial-author {
+  font-weight: 700;
+  color: var(--primary-royal-blue);
+  font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .about-us-hero-title {
+    font-size: 2.5rem !important;
+  }
+  .certification-logo {
+    height: 70px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-us-hero-title {
+    font-size: 2rem !important;
+  }
+  .mission-vision-grid,
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  .certification-logo {
+    height: 60px;
+  }
+}

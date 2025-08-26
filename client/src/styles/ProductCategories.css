@@ -1,0 +1,98 @@
+.product-categories-section {
+  padding: var(--section-padding-y) 0;
+  background-color: var(--white); /* Changed background to white */
+}
+
+.product-categories-section .section-title {
+  text-align: center;
+  margin-bottom: calc(var(--spacing-unit) * 2);
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: calc(var(--spacing-unit) * 1.5);
+  margin-top: calc(var(--spacing-unit) * 2);
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--light-gray);
+  padding: calc(var(--spacing-unit) * 1.5);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+}
+
+.category-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+  background-color: var(--secondary-safety-yellow);
+  color: var(--primary-royal-blue);
+}
+
+.category-item h3 {
+  font-weight: 700;
+  font-size: 1.4rem;
+  text-align: center;
+  margin-bottom: 0;
+  transition: color 0.3s ease;
+}
+
+.category-item:hover h3 {
+  color: var(--primary-royal-blue);
+}
+
+.category-icon {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  margin-bottom: var(--spacing-unit);
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.category-item:hover .category-icon {
+  filter: grayscale(0%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .product-categories-section .section-title {
+    font-size: 2.2rem;
+  }
+  .categories-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+  .category-item h3 {
+    font-size: 1.2rem;
+  }
+  .category-icon {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-categories-section .section-title {
+    font-size: 2rem;
+  }
+  .categories-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-unit);
+  }
+  .category-item h3 {
+    font-size: 1.1rem;
+  }
+  .category-icon {
+    width: 56px;
+    height: 56px;
+  }
+}

@@ -1,0 +1,53 @@
+.get-quote-page {
+  padding-top: 0;
+}
+
+.get-quote-page h1 {
+  background-color: var(--primary-royal-blue);
+  color: var(--secondary-safety-yellow);
+  padding: calc(var(--section-padding-y) / 1.5) var(--spacing-unit);
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: calc(var(--spacing-unit) * 1.5);
+}
+
+.get-quote-page p {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto calc(var(--spacing-unit) * 2);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.quote-form {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: calc(var(--spacing-unit) * 2);
+  border: 1px solid var(--light-gray);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  background-color: var(--white);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .get-quote-page h1 {
+    font-size: 2.5rem;
+  }
+  .get-quote-page p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .get-quote-page h1 {
+    font-size: 2.2rem;
+  }
+  .get-quote-page p {
+    margin: 0 auto calc(var(--spacing-unit) * 1.5);
+  }
+  .quote-form {
+    padding: calc(var(--spacing-unit) * 1.5);
+  }
+}

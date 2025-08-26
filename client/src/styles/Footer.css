@@ -1,0 +1,31 @@
+.footer-container {
+  border-top: 5px solid var(--secondary-safety-yellow);
+}
+
+.footer-text {
+  line-height: 1.6;
+}
+
+.footer-link {
+  transition: color 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer-container {
+    padding: calc(var(--spacing-unit) * 1.5) var(--spacing-unit);
+  }
+  .footer-content {
+    gap: var(--spacing-unit);
+  }
+  .footer-text {
+    font-size: 0.95rem;
+  }
+  .footer-links {
+    flex-direction: column;
+    gap: calc(var(--spacing-unit) * 0.5);
+  }
+  .footer-link {
+    font-size: 1rem;
+  }
+}

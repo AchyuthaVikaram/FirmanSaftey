@@ -1,0 +1,101 @@
+.industries-page {
+  padding-top: 0;
+}
+
+.industries-page h1 {
+  background-color: var(--primary-royal-blue);
+  color: var(--secondary-safety-yellow);
+  padding: calc(var(--section-padding-y) / 1.5) var(--spacing-unit);
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
+.industry-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: calc(var(--spacing-unit) * 1.5);
+  max-width: var(--container-max-width);
+  margin: var(--spacing-unit) auto;
+  padding: 0 var(--spacing-unit);
+}
+
+.industry-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--white);
+  padding: calc(var(--spacing-unit) * 1.5);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden; /* Ensures image corners are rounded correctly */
+}
+
+.industry-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.industry-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: var(--spacing-unit);
+  border: 3px solid var(--light-gray);
+  transition: border-color 0.3s ease;
+}
+
+.industry-card:hover .industry-image {
+  border-color: var(--secondary-safety-yellow);
+}
+
+.industry-card h2 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: calc(var(--spacing-unit) * 0.5);
+}
+
+.industry-card p {
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: calc(var(--spacing-unit) * 1.5);
+  flex-grow: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .industries-page h1 {
+    font-size: 2.5rem;
+  }
+  .industry-card h2 {
+    font-size: 1.3rem;
+  }
+  .industry-image {
+    width: 130px;
+    height: 130px;
+  }
+}
+
+@media (max-width: 768px) {
+  .industries-page h1 {
+    font-size: 2.2rem;
+  }
+  .industry-list {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-unit);
+  }
+  .industry-card h2 {
+    font-size: 1.2rem;
+  }
+  .industry-card p {
+    font-size: 0.95rem;
+  }
+  .industry-image {
+    width: 100px;
+    height: 100px;
+  }
+}

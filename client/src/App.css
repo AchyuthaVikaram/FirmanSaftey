@@ -1,0 +1,12 @@
+/* App.css */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scroll on small screens */
+}
+
+.main-content {
+  flex-grow: 1;
+  padding-top: 64px; /* Adjust based on header height */
+}

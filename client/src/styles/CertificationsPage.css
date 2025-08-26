@@ -1,0 +1,116 @@
+.certifications-page-container {
+  width: 100%;
+}
+
+.certifications-hero-banner {
+  background-color: var(--primary-royal-blue);
+  color: var(--white);
+  padding: calc(var(--section-padding-y) * 1) var(--spacing-unit);
+  text-align: center;
+}
+
+.certifications-hero-title {
+  font-size: 3rem !important;
+  font-weight: 700 !important;
+  color: var(--secondary-safety-yellow);
+  margin-bottom: var(--spacing-unit);
+}
+
+.certifications-iso-section .certification-logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: calc(var(--spacing-unit) * 2);
+  margin-top: calc(var(--spacing-unit) * 2);
+  flex-wrap: wrap;
+}
+
+.certifications-iso-section .certification-logo {
+  height: 90px; /* Adjust as needed */
+  max-width: 180px;
+  object-fit: contain;
+  filter: grayscale(80%);
+  transition: filter 0.3s ease;
+}
+
+.certifications-iso-section .certification-logo:hover {
+  filter: grayscale(0%);
+}
+
+.download-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-unit);
+  max-width: 700px;
+  margin: calc(var(--spacing-unit) * 2) auto 0 auto;
+}
+
+.download-item {
+  background-color: var(--white);
+  border: 1px solid var(--light-gray);
+  border-radius: 8px;
+  padding: calc(var(--spacing-unit) * 1.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.download-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.download-item-text-primary {
+  font-weight: 600;
+  color: var(--primary-royal-blue);
+  font-size: 1.1rem;
+}
+
+.download-item-text-secondary {
+  color: var(--medium-gray);
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .certifications-hero-title {
+    font-size: 2.5rem !important;
+  }
+  .certifications-iso-section .certification-logo {
+    height: 70px;
+  }
+  .download-item-text-primary {
+    font-size: 1rem;
+  }
+  .download-button {
+    padding: 0.6rem 1.2rem !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .certifications-hero-title {
+    font-size: 2.2rem !important;
+  }
+  .certifications-iso-section .certification-logos {
+    gap: var(--spacing-unit);
+  }
+  .certifications-iso-section .certification-logo {
+    height: 60px;
+  }
+  .download-list {
+    margin: var(--spacing-unit) auto 0 auto;
+  }
+  .download-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: calc(var(--spacing-unit) * 0.5);
+  }
+  .download-button {
+    width: 100%;
+    text-align: center;
+  }
+}
