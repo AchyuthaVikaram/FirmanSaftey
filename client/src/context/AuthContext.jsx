@@ -8,7 +8,12 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const userData = JSON.parse(storedUser);
+      setUser(userData);
+      // Store userId for cart management
+      if (userData._id) {
+        localStorage.setItem('userId', userData._id);
+      }
     }
   }, []);
 
@@ -16,12 +21,29 @@ export const AuthProvider = ({ children }) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
     localStorage.setItem('token', userData.token);
+    // Store userId for cart management
+    if (userData._id) {
+      localStorage.setItem('userId', userData._id);
+    }
+    
+    // Trigger a storage event to notify CartContext to load user's cart
+    window.dispatchEvent(new StorageEvent('storage', {
+      key: 'userId',
+      newValue: userData._id
+    }));
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    
+    // Trigger a storage event to notify CartContext to clear cart
+    window.dispatchEvent(new StorageEvent('storage', {
+      key: 'userId',
+      newValue: null
+    }));
   };
 
   // Check if user is admin

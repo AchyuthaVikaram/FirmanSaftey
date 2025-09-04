@@ -28,7 +28,13 @@ const LoginPage = () => {
       const response = await axios.post(`${BASE_URL}/api/users/login`, formData);
       login(response.data);
       success('Login successful! Welcome back.');
-      navigate('/profile');
+      
+      // Redirect admin users to admin dashboard, regular users to profile
+      if (response.data.role === 'Admin') {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/profile');
+      }
     } catch (err) {
       error(err.response?.data?.message || 'Login failed. Please check your credentials.');
     } finally {

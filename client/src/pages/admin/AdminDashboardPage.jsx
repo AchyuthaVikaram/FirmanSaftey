@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Typography, Grid, Card, CardContent, Paper } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import CategoryIcon from '@mui/icons-material/Category';
 import BusinessIcon from '@mui/icons-material/Business';
@@ -7,6 +8,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import PeopleIcon from '@mui/icons-material/People';
 
 const AdminDashboardPage = () => {
+  const navigate = useNavigate();
   const dashboardStats = [
     {
       title: 'Total Products',
@@ -68,7 +70,7 @@ const AdminDashboardPage = () => {
       </Box>
 
       {/* Stats Grid */}
-      <Grid container spacing={3} sx={{ mb: 6 }}>
+      <Grid container spacing={3} justifyContent="center" sx={{ mb: 6 }}>
         {dashboardStats.map((stat, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <Card sx={{ 
@@ -122,14 +124,15 @@ const AdminDashboardPage = () => {
         }}>
           Quick Actions
         </Typography>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} justifyContent="center">
           <Grid item xs={12} md={6}>
-            <Box sx={{ 
+            <Box onClick={() => navigate('/admin/products')} sx={{ 
               p: 3,
               border: '2px solid var(--light-gray)',
               borderRadius: '8px',
               textAlign: 'center',
               transition: 'all 0.3s ease',
+              cursor: 'pointer',
               '&:hover': {
                 borderColor: 'var(--primary-royal-blue)',
                 backgroundColor: 'rgba(10, 61, 98, 0.05)'
@@ -145,12 +148,13 @@ const AdminDashboardPage = () => {
             </Box>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Box sx={{ 
+            <Box onClick={() => navigate('/admin/requests')} sx={{ 
               p: 3,
               border: '2px solid var(--light-gray)',
               borderRadius: '8px',
               textAlign: 'center',
               transition: 'all 0.3s ease',
+              cursor: 'pointer',
               '&:hover': {
                 borderColor: 'var(--secondary-safety-yellow)',
                 backgroundColor: 'rgba(255, 193, 7, 0.05)'

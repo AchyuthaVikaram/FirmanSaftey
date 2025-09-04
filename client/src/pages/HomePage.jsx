@@ -123,10 +123,10 @@ const HomePage = () => {
         <WhyChooseUs />
       </Box>
 
-      {/* Featured Products */}
+      {/* Featured Products
       <Box sx={{ py: 6, backgroundColor: 'var(--light-gray)' }}>
         <FeaturedProducts />
-      </Box>
+      </Box> */}
 
       {/* Call to Action */}
       <Box sx={{ py: 6, backgroundColor: 'var(--primary-royal-blue)' }}>

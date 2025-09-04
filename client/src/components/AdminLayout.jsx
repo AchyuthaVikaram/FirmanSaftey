@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { 
   Box, 
   AppBar, 
@@ -16,21 +16,30 @@ import {
   useMediaQuery
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import LogoutIcon from '@mui/icons-material/Logout';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import CategoryIcon from '@mui/icons-material/Category';
 import BusinessIcon from '@mui/icons-material/Business';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import PeopleIcon from '@mui/icons-material/People';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
+import { useAuth } from '../context/AuthContext';
 
 const AdminLayout = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
   };
 
   const adminNavItems = [
@@ -50,8 +59,8 @@ const AdminLayout = () => {
     <Box sx={{ 
       display: 'flex', 
       alignItems: 'center', 
-      gap: 1,
-      flexWrap: 'wrap',
+      gap: 0.5,
+      flexWrap: 'nowrap',
       justifyContent: 'center'
     }}>
       {adminNavItems.map((item) => (
@@ -61,22 +70,22 @@ const AdminLayout = () => {
           to={item.path}
           startIcon={item.icon}
           sx={{
-            color: isActiveRoute(item.path) ? 'var(--secondary-safety-yellow)' : 'var(--white)',
-            backgroundColor: isActiveRoute(item.path) ? 'rgba(255, 193, 7, 0.1)' : 'transparent',
-            border: isActiveRoute(item.path) ? '1px solid var(--secondary-safety-yellow)' : '1px solid transparent',
+            color: isActiveRoute(item.path) ? 'var(--white)' : 'var(--dark-text)',
+            backgroundColor: isActiveRoute(item.path) ? 'var(--secondary-safety-yellow)' : 'transparent',
+            border: isActiveRoute(item.path) ? '1px solid var(--secondary-safety-yellow)' : '1px solid var(--dark-text)',
             borderRadius: '8px',
-            px: 2,
-            py: 1,
-            mx: 0.5,
+            px: 1.25,
+            py: 0.5,
+            mx: 0,
             fontWeight: isActiveRoute(item.path) ? 'bold' : 'normal',
             '&:hover': {
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              color: 'var(--secondary-safety-yellow)',
+              backgroundColor: 'var(--secondary-safety-yellow)',
+              color: 'var(--white)',
               borderColor: 'var(--secondary-safety-yellow)',
             },
             transition: 'all 0.3s ease',
             textTransform: 'none',
-            fontSize: '0.9rem',
+            fontSize: '0.85rem',
             minWidth: 'auto',
             whiteSpace: 'nowrap'
           }}
@@ -100,13 +109,13 @@ const AdminLayout = () => {
         '& .MuiDrawer-paper': { 
           boxSizing: 'border-box', 
           width: 280,
-          backgroundColor: 'var(--primary-dark-blue)',
-          color: 'var(--white)'
+          backgroundColor: 'var(--white)',
+          color: 'var(--dark-text)'
         },
       }}
     >
       <Box onClick={handleDrawerToggle} sx={{ overflow: 'auto', p: 2 }}>
-        <Typography variant="h6" sx={{ my: 2, textAlign: 'center', color: 'var(--secondary-safety-yellow)' }}>
+        <Typography variant="h6" sx={{ my: 2, textAlign: 'center', color: 'var(--primary-royal-blue)' }}>
           Admin Menu
         </Typography>
         <List>
@@ -116,13 +125,13 @@ const AdminLayout = () => {
                 component={Link} 
                 to={item.path}
                 sx={{
-                  color: isActiveRoute(item.path) ? 'var(--secondary-safety-yellow)' : 'var(--white)',
-                  backgroundColor: isActiveRoute(item.path) ? 'rgba(255, 193, 7, 0.1)' : 'transparent',
+                  color: isActiveRoute(item.path) ? 'var(--white)' : 'var(--dark-text)',
+                  backgroundColor: isActiveRoute(item.path) ? 'var(--secondary-safety-yellow)' : 'transparent',
                   borderRadius: '8px',
                   mb: 0.5,
                   '&:hover': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                    color: 'var(--secondary-safety-yellow)',
+                    backgroundColor: 'var(--secondary-safety-yellow)',
+                    color: 'var(--white)',
                   },
                 }}
               >
@@ -131,6 +140,24 @@ const AdminLayout = () => {
               </ListItemButton>
             </ListItem>
           ))}
+          <ListItem disablePadding>
+            <ListItemButton 
+              onClick={handleLogout}
+              sx={{
+                color: 'var(--dark-text)',
+                backgroundColor: 'transparent',
+                borderRadius: '8px',
+                mb: 0.5,
+                '&:hover': {
+                  backgroundColor: 'var(--secondary-safety-yellow)',
+                  color: 'var(--white)',
+                },
+              }}
+            >
+              <Box sx={{ mr: 1 }}><LogoutIcon /></Box>
+              <ListItemText primary="Logout" />
+            </ListItemButton>
+          </ListItem>
         </List>
       </Box>
     </Drawer>
@@ -142,8 +169,8 @@ const AdminLayout = () => {
       <AppBar
         position="static"
         sx={{
-          backgroundColor: 'var(--primary-dark-blue)',
-          color: 'var(--white)',
+          backgroundColor: 'var(--white)',
+          color: 'var(--dark-text)',
           boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
           zIndex: theme.zIndex.drawer + 1
         }}
@@ -155,7 +182,7 @@ const AdminLayout = () => {
         }}>
           <Typography variant="h6" sx={{ 
             fontWeight: 'bold',
-            color: 'var(--secondary-safety-yellow)',
+            color: 'var(--primary-royal-blue)',
             display: { xs: 'none', sm: 'block' }
           }}>
             Admin Dashboard
@@ -163,15 +190,36 @@ const AdminLayout = () => {
           
           <Typography variant="h6" sx={{ 
             fontWeight: 'bold',
-            color: 'var(--secondary-safety-yellow)',
+            color: 'var(--primary-royal-blue)',
             display: { xs: 'block', sm: 'none' }
           }}>
             Admin
           </Typography>
 
           {/* Desktop Navigation */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 2 }}>
             {desktopNav}
+            <Button
+              onClick={handleLogout}
+              startIcon={<LogoutIcon />}
+              sx={{
+                color: 'var(--dark-text)',
+                border: '1px solid var(--dark-text)',
+                borderRadius: '8px',
+                px: 2,
+                py: 1,
+                '&:hover': {
+                  backgroundColor: 'var(--secondary-safety-yellow)',
+                  color: 'var(--white)',
+                  borderColor: 'var(--secondary-safety-yellow)',
+                },
+                transition: 'all 0.3s ease',
+                textTransform: 'none',
+                fontSize: '0.9rem',
+              }}
+            >
+              Logout
+            </Button>
           </Box>
 
           {/* Mobile Menu Button */}
@@ -182,7 +230,7 @@ const AdminLayout = () => {
             onClick={handleDrawerToggle}
             sx={{ 
               display: { md: 'none' },
-              color: 'var(--white)'
+              color: 'var(--dark-text)'
             }}
           >
             <MenuIcon />

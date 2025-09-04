@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../lib/constants';
 import { Box, Typography, CircularProgress, Alert, Button, TextField, Paper } from '@mui/material';
 import { useCart } from '../context/CartContext';
@@ -10,12 +10,13 @@ import axios from 'axios';
 
 const ProductDetailPage = () => {
   const { productId } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const { addToCart } = useCart();
-  const { success } = useToast();
+  const { addToCart, isAuthenticated } = useCart();
+  const { success, error: showError } = useToast();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -38,8 +39,12 @@ const ProductDetailPage = () => {
 
   const handleAddToCart = () => {
     if (product) {
-      addToCart(product, quantity);
-      success(`Added ${quantity} ${quantity === 1 ? 'item' : 'items'} to cart!`);
+      const added = addToCart(product, quantity, navigate);
+      if (added) {
+        success(`Added ${quantity} ${quantity === 1 ? 'item' : 'items'} to cart!`);
+      } else {
+        showError('Please login to add items to cart');
+      }
     }
   };
 
@@ -240,7 +245,7 @@ const ProductDetailPage = () => {
                     onClick={handleAddToCart}
                     startIcon={<ShoppingCartIcon />}
                     sx={{
-                      backgroundColor: 'var(--secondary-safety-yellow)',
+                      backgroundColor: isAuthenticated ? 'var(--secondary-safety-yellow)' : 'var(--medium-gray)',
                       color: 'var(--dark-text)',
                       fontWeight: 'bold',
                       px: 4,
@@ -249,14 +254,15 @@ const ProductDetailPage = () => {
                       textTransform: 'none',
                       fontSize: '1.1rem',
                       '&:hover': {
-                        backgroundColor: '#E6B000',
-                        transform: 'translateY(-2px)',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+                        backgroundColor: isAuthenticated ? '#E6B000' : 'var(--medium-gray)',
+                        transform: isAuthenticated ? 'translateY(-2px)' : 'none',
+                        boxShadow: isAuthenticated ? '0 4px 12px rgba(0,0,0,0.2)' : 'none'
                       },
-                      transition: 'all 0.3s ease'
+                      transition: 'all 0.3s ease',
+                      cursor: isAuthenticated ? 'pointer' : 'default'
                     }}
                   >
-                    Add to Cart
+                    {isAuthenticated ? 'Add to Cart' : 'Login to Add to Cart'}
                   </Button>
                 </Box>
 

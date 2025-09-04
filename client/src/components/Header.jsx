@@ -16,7 +16,7 @@ const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
-  const { getItemCount } = useCart();
+  const { getItemCount, clearCart, isAuthenticated } = useCart();
   const { user, logout, isAdmin } = useAuth();
 
   const handleDrawerToggle = () => {
@@ -36,8 +36,9 @@ const Header = () => {
   };
 
   const handleLogout = () => {
+    clearCart(); // Clear cart before logout
     logout();
-    navigate('/'); // Redirect to home after logout
+    navigate('/login'); // Redirect to login page after logout
     handleDrawerToggle(); // Close mobile drawer on logout
   };
 
@@ -87,7 +88,7 @@ const Header = () => {
         </ListItem>
         <ListItem disablePadding>
           <Button component={Link} to="/cart" sx={{ width: '100%' }} className="mobile-nav-button">
-            <Badge badgeContent={getItemCount()} color="secondary">
+            <Badge badgeContent={isAuthenticated ? getItemCount() : 0} color="secondary">
               <ShoppingCartIcon />
             </Badge>
             <ListItemText primary="Cart" sx={{ ml: 1 }} />
@@ -198,7 +199,7 @@ const Header = () => {
             />
           </form>
           <IconButton color="inherit" component={Link} to="/cart">
-            <Badge badgeContent={getItemCount()} color="secondary">
+            <Badge badgeContent={isAuthenticated ? getItemCount() : 0} color="secondary">
               <ShoppingCartIcon sx={{ color: 'var(--dark-text)' }} />
             </Badge>
           </IconButton>

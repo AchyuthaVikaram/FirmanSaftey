@@ -3,34 +3,70 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState(() => {
-    // Clear any existing cart data on first load to ensure clean start
-    const localData = localStorage.getItem('cartItems');
-    if (localData) {
-      try {
-        const parsed = JSON.parse(localData);
-        // Only restore if it's a valid array and not empty
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
+  const [cartItems, setCartItems] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check authentication status and load cart items
+  useEffect(() => {
+    const checkAuthAndLoadCart = () => {
+      const userId = localStorage.getItem('userId');
+      const user = localStorage.getItem('user');
+      
+      if (userId && user) {
+        setIsAuthenticated(true);
+        // Load user's saved cart
+        const localData = localStorage.getItem(`cartItems_${userId}`);
+        if (localData) {
+          try {
+            const parsed = JSON.parse(localData);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              setCartItems(parsed);
+              return;
+            }
+          } catch (error) {
+            console.error('Error parsing cart data:', error);
+          }
         }
-      } catch (error) {
-        console.error('Error parsing cart data:', error);
+        setCartItems([]);
+      } else {
+        setIsAuthenticated(false);
+        setCartItems([]);
       }
-    }
-    // Start with empty cart
-    localStorage.removeItem('cartItems');
-    return [];
-  });
+    };
+
+    // Check on mount
+    checkAuthAndLoadCart();
+
+    // Listen for storage changes (when user logs in/out)
+    const handleStorageChange = (e) => {
+      if (e.key === 'userId' || e.key === 'user') {
+        checkAuthAndLoadCart();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   useEffect(() => {
-    if (cartItems.length > 0) {
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    } else {
-      localStorage.removeItem('cartItems');
+    const userId = localStorage.getItem('userId');
+    if (userId && cartItems.length > 0) {
+      localStorage.setItem(`cartItems_${userId}`, JSON.stringify(cartItems));
+    } else if (userId) {
+      localStorage.removeItem(`cartItems_${userId}`);
     }
   }, [cartItems]);
 
-  const addToCart = (product, quantity = 1) => {
+  const addToCart = (product, quantity = 1, navigate) => {
+    // Check if user is authenticated
+    if (!isAuthenticated) {
+      // Redirect to login page
+      if (navigate) {
+        navigate('/login');
+      }
+      return false; // Return false to indicate failure
+    }
+
     setCartItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.product._id === product._id);
       const productWithPrice = { ...product, price: product.price || 0 }; // Ensure price exists
@@ -44,6 +80,7 @@ export const CartProvider = ({ children }) => {
         return [...prevItems, { product: productWithPrice, quantity }];
       }
     });
+    return true; // Return true to indicate success
   };
 
   const removeFromCart = (productId) => {
@@ -63,6 +100,7 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => {
     setCartItems([]);
+    // Intentionally do not remove persisted cart so it survives logout/login
   };
 
   const getTotalPrice = () => {
@@ -71,6 +109,25 @@ export const CartProvider = ({ children }) => {
 
   const getItemCount = () => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
+  };
+
+  // Function to load cart items for a specific user
+  const loadUserCart = (userId) => {
+    if (userId) {
+      const localData = localStorage.getItem(`cartItems_${userId}`);
+      if (localData) {
+        try {
+          const parsed = JSON.parse(localData);
+          if (Array.isArray(parsed)) {
+            setCartItems(parsed);
+            return;
+          }
+        } catch (error) {
+          console.error('Error parsing cart data:', error);
+        }
+      }
+    }
+    setCartItems([]);
   };
 
   return (
@@ -83,6 +140,8 @@ export const CartProvider = ({ children }) => {
         clearCart,
         getTotalPrice,
         getItemCount,
+        loadUserCart,
+        isAuthenticated,
       }}
     >
       {children}

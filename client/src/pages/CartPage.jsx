@@ -6,7 +6,7 @@ import { useToast } from '../context/ToastContext';
 import { Link } from 'react-router-dom';
 
 const CartPage = () => {
-  const { cartItems, removeFromCart, updateQuantity, getTotalPrice, getItemCount } = useCart();
+  const { cartItems, removeFromCart, updateQuantity, getTotalPrice, getItemCount, isAuthenticated } = useCart();
   const { success, warning } = useToast();
 
   const handleQuantityChange = (productId, quantity) => {
@@ -40,10 +40,40 @@ const CartPage = () => {
         color: 'var(--primary-royal-blue)',
         fontWeight: 'bold'
       }}>
-        Shopping Cart ({getItemCount()} items)
+        {isAuthenticated ? `Shopping Cart (${getItemCount()} items)` : 'Shopping Cart'}
       </Typography>
 
-      {cartItems.length === 0 ? (
+      {!isAuthenticated ? (
+        <Box sx={{ 
+          textAlign: 'center', 
+          mt: 8,
+          p: 4,
+          backgroundColor: 'var(--white)',
+          borderRadius: '8px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          maxWidth: 500
+        }}>
+          <Typography variant="h6" sx={{ mb: 2, color: 'var(--medium-gray)' }}>
+            Please login to view your cart
+          </Typography>
+          <Button 
+            variant="contained" 
+            color="primary" 
+            component={Link} 
+            to="/login"
+            sx={{ 
+              mt: 2,
+              backgroundColor: 'var(--secondary-safety-yellow)',
+              color: 'var(--dark-text)',
+              '&:hover': {
+                backgroundColor: '#E6B000'
+              }
+            }}
+          >
+            Login
+          </Button>
+        </Box>
+      ) : cartItems.length === 0 ? (
         <Box sx={{ 
           textAlign: 'center', 
           mt: 8,

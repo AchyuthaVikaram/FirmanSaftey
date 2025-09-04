@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
@@ -31,14 +31,31 @@ import { CartProvider } from './context/CartContext';
 import { ToastProvider } from './context/ToastContext';
 import './App.css';
 
+// Layout wrapper component to conditionally show Header and Footer
+const LayoutWrapper = ({ children }) => {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
+  if (isAdminRoute) {
+    return <>{children}</>;
+  }
+
+  return (
+    <div className="app-container">
+      <Header />
+      {children}
+      <Footer />
+    </div>
+  );
+};
+
 function App() {
   return (
     <AuthProvider>
       <CartProvider>
         <ToastProvider>
           <Router>
-            <div className="app-container">
-              <Header />
+            <LayoutWrapper>
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/about-us" element={<AboutUsPage />} />
@@ -57,8 +74,12 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
 
-                {/* Protected Admin Routes */}
-                <Route path="/admin">
+                {/* Protected Admin Routes with AdminLayout */}
+                <Route path="/admin" element={
+                  <ProtectedAdminRoute>
+                    <AdminLayout />
+                  </ProtectedAdminRoute>
+                }>
                   <Route index element={<AdminDashboardPage />} />
                   <Route path="dashboard" element={<AdminDashboardPage />} />
                   <Route path="products" element={<ManageProductsPage />} />
@@ -68,8 +89,7 @@ function App() {
                   <Route path="analytics" element={<AnalyticsPage />} />
                 </Route>
               </Routes>
-              <Footer />
-            </div>
+            </LayoutWrapper>
           </Router>
         </ToastProvider>
       </CartProvider>
